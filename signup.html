@@ -26,6 +26,8 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/log.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 
   <!-- =======================================================
   * Template Name: MeFamily
@@ -237,28 +239,23 @@
     <br> 
   
     <main id="main">
-      <form id="submitForm" style="text-align: center;" onsubmit="submitForm(); return false;">
-
-     
-        <h2 style="color: blue;">Sign Up</h2>
-        <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
-    
-        <label for="prenom">Prénom :</label>
-        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
-    
-      
-        <label for="email">Email :</label>
-        <input type="email" id="email" name="email" placeholder="Votre adresse e-mail" required>
-    
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" placeholder="Votre mot de passe" required>
-    
-        <button type="button">S'inscrire</button>
-
-        
+      <form id="inscrireForm" style="text-align: center;">
+          <h2 style="color: blue;">Sign Up</h2>
+          <label for="nom">Nom :</label>
+          <input type="text" id="nom" name="nom" placeholder="Votre nom" required autocomplete="username">
+  
+          <label for="prenom">Prénom :</label>
+          <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required autocomplete="username">
+  
+          <label for="email">Email :</label>
+          <input type="email" id="email" name="email" placeholder="Votre adresse e-mail" required autocomplete="username">
+  
+          <label for="password">Mot de passe :</label>
+          <input type="password" id="password" name="password" placeholder="Votre mot de passe" required autocomplete="current-password">
+  
+          <button type="button" id="inscrire">S'inscrire</button>
       </form>
-    </main>
+  </main>
 <br>    
  
 
@@ -298,6 +295,19 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/sign.js"></script>
+  <script>
+    console.log("Script signup.html exécuté");
+    // Récupérer les paramètres de l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+  
+    // Afficher le message s'il est présent
+    if (message) {
+      alert(message);
+    }
+  </script>
+  
+  
 
 
 </body>

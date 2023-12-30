@@ -1,19 +1,11 @@
 <?php
-session_start()
-// log.php
-
-// Récupérer les données de la requête POST
-$nom = isset($_POST['nom']) ? $_POST['nom'] : '';
-$prenom = isset($_POST['prenom']) ? $_POST['prenom'] : '';
-$email = isset($_POST['email']) ? $_POST['email'] : '';
-$password = isset($_POST['password']) ? $_POST['password'] : '';
-
+session_start();
 
 // Informations de connexion à la base de données
-$host = "localhost:3309"; // Adresse du serveur de la base de données
-$user = "root"; // Nom d'utilisateur de la base de données
-$mdp = ""; // Mot de passe de la base de données
-$bdd = "evente"; // Nom de la base de données
+$host = "localhost:3309";
+$user = "root";
+$mdp = "";
+$bdd = "evente";
 
 try {
     // Connexion à la base de données avec PDO
@@ -22,24 +14,40 @@ try {
     // Définir le mode d'erreur PDO à exception
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Préparer la requête SQL d'insertion avec des paramètres
-    $sql = "INSERT INTO user (nom, prenom, email, password) VALUES (:nom, :prenom, :email, :password)";
-    $requete = $connexion->prepare($sql);
+    // Récupérer les données de la requête POST
+    $email = $_GET['email'];
+    $password = $_GET['password'];
+    $nom = $_GET['nom'];
+    $prenom = $_GET['prenom'];
 
-    // Liaison des paramètres
-    $requete->bindParam(':nom', $nom);
-    $requete->bindParam(':prenom', $prenom);
-    $requete->bindParam(':email', $email);
-    $requete->bindParam(':password', $password);
+    // Vérifier si l'utilisateur existe déjà
+    $sqlCheckUser = "SELECT COUNT(*) AS count FROM user WHERE email = :email";
+    $requeteCheckUser = $connexion->prepare($sqlCheckUser);
+    $requeteCheckUser->bindParam(':email', $email);
+    $requeteCheckUser->execute();
+    $result = $requeteCheckUser->fetch(PDO::FETCH_ASSOC);
 
-    // Exécuter la requête
-    $requete->execute();
+    if ($result['count'] > 0) {
+        // L'utilisateur existe déjà, rediriger vers la page de connexion avec un message
+        echo json_encode(["status" => 1, "message" => "Vous avez déjà un compte"]);
+    } else {
+        // L'utilisateur n'existe pas, procéder à l'insertion
+        $sqlInsertUser = "INSERT INTO user (nom, prenom, email, password) VALUES (:nom, :prenom, :email, :password)";
+        $requeteInsertUser = $connexion->prepare($sqlInsertUser);
+        $requeteInsertUser->bindParam(':nom', $nom);
+        $requeteInsertUser->bindParam(':prenom', $prenom);
+        $requeteInsertUser->bindParam(':email', $email);
+        $requeteInsertUser->bindParam(':password', $password);
 
-    // Redirection vers la page niceadmin/index.html
-    header("Location: Niceadmin/index.html");
-    exit(); // Assurez-vous de terminer le script après la redirection
+        // Exécuter la requête d'insertion
+        $requeteInsertUser->execute();
+
+        // Rediriger vers la page Clhome.html
+        echo json_encode(["status" => 2, "message" => "Inscription réussie"]);
+    }
 } catch (PDOException $e) {
-    echo "Erreur lors de l'insertion des données : " . $e->getMessage();
+    // En cas d'erreur, retourner un message d'erreur
+    echo json_encode(["status" => "error", "message" => $e->getMessage()]);
 }
 
 // Fermer la connexion à la base de données
