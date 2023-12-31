@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <script src="https://maps.googleapis.com/maps/api/place/findplacefromtext/output?parameters"></script>
-
+  
   <title>Evente</title>
   <style>
      #main {
@@ -48,57 +48,57 @@
   
   button:hover {
     background-color: #0087e7;
+
   }
+ 
+
   </style>
   </head>
+  
  <body>
-    <main id="main">
-        <form action="votre_script_de_traitement.php" method="post">
-            <label >Infos de base</label>
-            <label >Nommez votre événement et expliquez aux participants potentiels pourquoi ils doivent absolument venir. Ajoutez des infos soulignant son caractère unique.</label>
-          <label >Nom de l Evenment</label>
-          <input class="form-control" type="text" placeholder="Default input" aria-label="default input example">
-          
-          <label for="password">Mot de passe:</label>
-          <input type="password" id="password" name="password" placeholder="Votre mot de passe" required>
-          <div class="custom-file">
+  <main id="main">
+    <form action="ajouterevt.php" method="post" enctype="multipart/form-data">
+        <label>Infos de base</label>
+        <label>Nommez votre événement et expliquez aux participants potentiels pourquoi ils doivent absolument venir. Ajoutez des infos soulignant son caractère unique.</label>
+
+        <label>Nom de l'Événement</label>
+        <input class="form-control" type="text" name="nom_evenement" placeholder="Default input" aria-label="default input example" required>
+
+        <label for="categorie">Catégorie</label>
+        <select id="categorie" name="categorie" required>
+            <option value="musique">Musique</option>
+            <option value="vie-nocturne">Vie nocturne</option>
+            <option value="arts-de-la-scene">Arts de la scène</option>
+            <option value="sante">Santé</option>
+            <option value="loisir">Loisir</option>
+            <option value="gastronomie">Gastronomie</option>
+        </select>
+
+        <label for="start">Date de début</label>
+        <input type="date" id="date_debut" name="date_debut" value="2018-07-22" min="2018-01-01" max="2018-12-31" required />
+
+        <label for="appt">Début de l'Événement</label>
+        <input type="time" id="appt" name="heure_debut" min="09:00" max="18:00" required />
+
+        <label for="placeSearch">Lieu :</label>
+        <input type="text" id="placeSearch" name="lieu" placeholder="Entrez un lieu" required />
+
+        <div class="custom-file">
             <label class="custom-file-label" for="customFileLang">Choisir une image</label>
-            <input type="file" class="custom-file-input" id="customFileLang" lang="es" accept="image/*">
-            
-          </div>
-          <label for="start"> date de debut</label>
-          
-          
-       <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
-       <label for="appt">debut de l Evenment</label>
+            <input type="file" class="custom-file-input" id="customFileLang" lang="es" accept="image/*" name="image" required>
+        </div>
 
-         <input type="time" id="appt" name="appt" min="09:00" max="18:00" required />
-         <label for="start">date de fin</label>
-          
-          
-       <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
-       <label for="appt">finde l Evenment</label>
+        <!-- Ajoutez d'autres champs ou boutons du formulaire au besoin -->
 
-         <input type="time" id="appt" name="appt" min="09:00" max="18:00" required />
-         <label for="placeSearch">Rechercher un lieu :</label>
-         <input type="text" id="placeSearch" placeholder="Entrez un lieu" />
+        <button type="submit">Rechercher</button>
+    </form>
+</main>
 
-       <!-- Ajoutez d'autres champs ou boutons du formulaire au besoin -->
 
-       <button type="submit">Rechercher</button>
-          <!--<button type="submit">Se connecter</button> -->
-          <a href="NiceAdmin\index.html" class="bouton-lien">Se connecter</a>
-        </form>
 
-<!-- Script JavaScript pour activer l'Autocomplete -->
-<script>
-    function initAutocomplete() {
-      var input = document.getElementById('placeSearch');
-      var autocomplete = new google.maps.places.Autocomplete(input);
-    }
-    // Initialiser l'Autocomplete lorsque la page est chargée
-    google.maps.event.addDomListener(window, 'load', initAutocomplete);
-  </script>
+
+
+
 
 
 

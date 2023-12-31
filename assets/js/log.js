@@ -24,7 +24,7 @@ $(document).ready(function() {
           window.location.href = 'http://localhost/Evente/NiceAdmin/index.html';
         } else if (data.status === 2) {
           // Utilisateur trouvé, mais l'email et le mot de passe ne correspondent pas, redirection vers Clhome.html
-          window.location.href = 'http://localhost/Evente/Clhome.html';
+          window.location.href = 'http://localhost/Evente/Clhome.php';
         } else if (data.status === 3) {
           // Utilisateur non trouvé, redirection vers signup.html
           window.location.href = 'http://localhost/Evente/signup.html?message=Veuillez vous inscrire';

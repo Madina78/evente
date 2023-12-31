@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Contact - NiceAdmin Bootstrap Template</title>
+  <title>Pages / F.A.Q - NiceAdmin Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -28,6 +28,23 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #ffffff;
+           color:#4154f1;
+        }
+    </style>
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -45,7 +62,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
-       
+     
         <span class="d-none d-lg-block">Evente</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -279,7 +296,7 @@
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
-      </li><!-- End Dashboard Nav
+      </li><!-- End Dashboard Nav 
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
@@ -403,7 +420,7 @@
             </a>
           </li>
         </ul>
-      </li> End Tables Nav 
+      </li>End Tables Nav 
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
@@ -449,7 +466,7 @@
             </a>
           </li>
         </ul>
-      </li> End Icons Nav -->
+      </li>   End Icons Nav -->
 
       <li class="nav-heading">Pages</li>
 
@@ -467,6 +484,7 @@
         </a>
       </li><!-- End F.A.Q Page Nav -->
 
+   
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="listeevn.php">
@@ -474,6 +492,7 @@
           <span>Liste des Evenements</span>
         </a>
       </li><!-- End Register Page Nav -->
+    
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-login.html">
@@ -481,14 +500,12 @@
           <span>Login</span>
         </a>
       </li><!-- End Login Page Nav -->
-      
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-contact.html">
           <i class="bi bi-envelope"></i>
           <span>Contact</span>
         </a>
       </li><!-- End Contact Page Nav -->
-
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-error-404.html">
@@ -510,94 +527,70 @@
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
-      <h1>Contact</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Pages</li>
-          <li class="breadcrumb-item active">Contact</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+   
 
-    <section class="section contact">
+    <?php
+// Connexion à la base de données
+$host = "localhost:3309"; // Adresse du serveur MySQL
+$user = "root"; // Nom d'utilisateur MySQL
+$mdp = ""; // Mot de passe MySQL
+$bdd = "evente"; // Nom de la base de données
 
-      <div class="row gy-4">
+try {
+    $connexion = new PDO("mysql:host=$host;dbname=$bdd", $user, $mdp);
+    $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        <div class="col-xl-6">
+    // Récupération des données de la table user
+    $requete = $connexion->prepare("SELECT * FROM event");
+    $requete->execute();
+    $events = $requete->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Erreur : " . $e->getMessage();
+} finally {
+    $connexion = null;
+}
+?>
 
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="info-box card">
-                <i class="bi bi-geo-alt"></i>
-                <h3>Address</h3>
-                <p>A108 Adam Street,<br>New York, NY 535022</p>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="info-box card">
-                <i class="bi bi-telephone"></i>
-                <h3>Call Us</h3>
-                <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="info-box card">
-                <i class="bi bi-envelope"></i>
-                <h3>Email Us</h3>
-                <p>info@example.com<br>contact@example.com</p>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="info-box card">
-                <i class="bi bi-clock"></i>
-                <h3>Open Hours</h3>
-                <p>Monday - Friday<br>9:00AM - 05:00PM</p>
-              </div>
-            </div>
-          </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Evenments</title>
+</head>
+<body>
 
-        </div>
+    <h2>Liste des Evenments</h2>
 
-        <div class="col-xl-6">
-          <div class="card p-4">
-            <form action="forms/contact.php" method="post" class="php-email-form">
-              <div class="row gy-4">
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>categorie</th>
+                <th>date</th>
+                <th>heure</th>
+                <th>image</th>
+                <th>auto</th>
+                <!-- Ajoutez d'autres colonnes au besoin -->
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($events as $event): ?>
+                <tr>
+                    <td><?php echo $event['nomev']; ?></td>
+                    <td><?php echo $event['categorie']; ?></td>
+                    <td><?php echo $event['date']; ?></td>
+                    <td><?php echo $event['heure']; ?></td>
+                    <td><?php echo $event['image']; ?></td>
+                    <td><?php echo $event['auto']; ?></td>
+                    <!-- Ajoutez d'autres colonnes au besoin -->
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required>
-                </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required>
-                </div>
-
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required>
-                </div>
-
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
-                </div>
-
-              </div>
-            </form>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
+</body>
+</html>
 
   </main><!-- End #main -->
 

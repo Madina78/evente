@@ -33,7 +33,7 @@ $(document).ready(function () {
                 } else if (data.status === 2) {
                     // Utilisateur ajouté avec succès, rediriger vers Clhome.html
                     alert(data.message);
-                    window.location.href = 'http://localhost/Evente/Clhome.html';
+                    window.location.href = 'http://localhost/Evente/Clhome.php';
                 } else if (data.status === "error") {
                     // Une erreur s'est produite, afficher le message d'erreur
                     alert(data.message);

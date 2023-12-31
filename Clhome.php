@@ -1,3 +1,25 @@
+
+<?php
+// Connexion à la base de données
+$host = "localhost:3309"; // Adresse du serveur MySQL
+$user = "root"; // Nom d'utilisateur MySQL
+$mdp = ""; // Mot de passe MySQL
+$bdd = "evente"; // Nom de la base de données
+
+try {
+    $connexion = new PDO("mysql:host=$host;dbname=$bdd", $user, $mdp);
+    $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Récupération des données de la table event
+    $requete = $connexion->prepare("SELECT * FROM event");
+    $requete->execute();
+    $events = $requete->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Erreur : " . $e->getMessage();
+} finally {
+    $connexion = null;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,36 +50,39 @@
 			text-align: center;
 			font-size: 14px;
 			margin-top: 5px;}
-      .card {
-    /* Add shadows to create the "card" effect */
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+
+    .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
-    width: 25%; /* Définit la largeur de chaque carte à 25% pour en afficher 4 horizontalement */
-    margin: 10px; /* Ajoute une marge autour de chaque carte */
-    box-sizing: border-box; /* Inclut la bordure et le remplissage dans la largeur et la hauteur */
-    display: flex; /* Utilisez flexbox pour organiser les éléments horizontalement */
+    width: 20%; /* Ajuste la largeur de chaque carte à 20% pour les rendre plus petites */
+    margin: 10px;
+    box-sizing: border-box;
+    display: flex;
+    border-radius: 10px; /* Ajoute la bordure arrondie */
 }
 
 /* On mouse-over, add a deeper shadow */
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* Style de l'image pour la rendre plus petite */
 .card-img {
-    width: 100px; /* Ajustez la largeur souhaitée */
-    height: auto; /* Maintient le ratio hauteur-largeur */
+    width: 80px; /* Ajuste la taille de l'image */
+    height: auto;
+    border-radius: 50%; /* Rend l'image circulaire */
 }
 
 /* Add some padding inside the card container */
 .container2 {
-    padding: 2px 16px;
-    flex-grow: 1; /* Permet à la partie texte de prendre tout l'espace disponible */
+    padding: 10px; /* Ajuste la marge intérieure pour plus d'espace */
+    flex-grow: 1;
 }
+
 .like-dislike {
     display: flex;
-    justify-content: space-between; /* Place les boutons "Like" et "Dislike" à chaque extrémité */
-    margin-top: 10px; /* Ajoute un espace entre le texte et les boutons */
+    justify-content: space-between;
+    margin-top: 10px;
 }
 
 button {
@@ -69,8 +94,9 @@ button {
 }
 
 button:hover {
-    background-color: #ddd; /* Change la couleur de fond lorsqu'ils sont survolés */
+    background-color: #ddd;
 }
+
 /* Style de la petite photo de profil */
 .profile-link img.profile-img {
   width: 30px; /* Ajustez la taille souhaitée */
@@ -128,7 +154,7 @@ button:hover {
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 
-
+</head>
 
 	
 <body>
@@ -197,14 +223,23 @@ button:hover {
 		</div>
 	</div>
   <h3 style="text-align: center; font-weight: bold;">Evenments populaire</h3>
-  <div class="card">
-    <img src="n.jpeg" alt="Avatar" style="width:100%">
-    <div class="container2">
-      <h4><b>John Doe</b></h4>
-      <p>Architect & Engineer</p>
-      <div class="like-dislike">
-        <button class="like-btn">&#128077; Like</button>
-        <button class="dislike-btn">&#128078; Dislike</button>
+ 
+ 
+  
+   
+  <?php
+        // Affichage des cartes avec les données récupérées
+        foreach ($events as $event) {
+          echo '<div class="card">';
+            echo '<div class="card">';
+            echo '<img src="' . $event['image'] . '"  alt="Image de l\'événement"  " class="card-img">';
+            echo '<div class="container2">';
+            echo '<h4><b>' . $event['nomev'] . '</b></h4>';
+            echo '<button> Détails</button>';
+            echo '</div>';
+            echo '</div>';
+        }
+        ?>
     </div>
     </div>
   </div>
