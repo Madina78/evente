@@ -11,7 +11,7 @@ try {
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Récupération des données de la table event
-    $requete = $connexion->prepare("SELECT * FROM event");
+    $requete = $connexion->prepare("SELECT * FROM event where categorie='Loisir'");
     $requete->execute();
     $events = $requete->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -31,25 +31,7 @@ try {
   <meta content="" name="description">
   <meta content="" name="keywords">
   <style>
-.containerimg {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			align-items: center;
-		}
-    .containerimg img {
-    margin: 17px;
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 5px solid #f2f2f2;
-    }
 
-    .containerimg h2 {
-			text-align: center;
-			font-size: 14px;
-			margin-top: 5px;}
 /* Ajout de styles pour gérer la disposition des cartes */
 .card-container {
   display: flex;
@@ -187,41 +169,7 @@ button:hover {
   <br>
   <br>
   <br>
-  <div class="containerimg">
-		<div>
-			<img src="mic2.svg" alt="Image 1">
-			<a href="login.html"         > <h2>musique</h2> </a>
-		</div>
-		<div>
-			<img src="disco-ball-disco-svgrepo-com.svg" alt="Image 2">
-			<a href="login.html"         > <h2>vie nocturne</h2> </a>
-      
-     
-		</div>
-		<div>
-			<img src="mask-svgrepo-com.svg" alt="Image 3">
-      <a href="login.html"         > <h2>Arts de la scène</h2> </a>
-		
-        
-		</div>
-		<div>
-			<img src="health-medical-svgrepo-com.svg" alt="Image 4">
-      <a href="login.html"         > <h2>Sante</h2> </a>
-		
-		</div>
-		<div>
-			<img src="game-booster-svgrepo-com.svg" alt="Image 5">
-      <a href="Loisir.php"         > <h2>Loisir</h2> </a>
-			
-		</div>
-		<div>
-			  <img src="food-dish-svgrepo-com.svg" alt="Image 6">
-        <a href="login.html"         > <h2>Gastronomie</h2> </a>
-			   
-		    </div>
-	     </div>
-       <h3 style="text-align: center; font-weight: bold;">Evenments populaire</h3>
- 
+  
       <div class="card-container">
   
    
