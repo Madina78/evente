@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dateDebut = $_POST['date_debut'];
     $heureDebut = $_POST['heure_debut'];
     $lieu = $_POST['lieu'];
+    $lieu = $_POST['prix'];
 
     // Traiter le fichier image s'il est téléchargé
     $imageFileName = '';
@@ -42,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Préparer la requête d'insertion
-        $sql = "INSERT INTO event (id_client, nomev, categorie, date, heure, lieux, image) 
-                VALUES (:id_client, :nom_evenement, :categorie, :dateDebut, :heureDebut, :lieu, :image)";
+        $sql = "INSERT INTO event ( nomev, categorie, date, heure, lieux, image,id_client,prix) 
+                VALUES ( :nom_evenement, :categorie, :dateDebut, :heureDebut, :lieu, :image,:id_client,:prix)";
         $requete = $connexion->prepare($sql);
 
         // Liaison des paramètres
@@ -54,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $requete->bindParam(':heureDebut', $heureDebut);
         $requete->bindParam(':lieu', $lieu);
         $requete->bindParam(':image', $imageFileName);
+        $requete->bindParam(':prix', $prix);
 
         // Exécution de la requête
         $requete->execute();

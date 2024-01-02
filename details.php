@@ -1,3 +1,10 @@
+<?php session_start();
+$userId = $_SESSION['user_id'];
+$host = "localhost:3309";
+    $user = "root";
+    $mdp = "";
+    $bdd = "evente"; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -120,29 +127,50 @@
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="active" href="Clhome.php">Home</a></li>
-          <li><a href="ajouter-even.html">Ajouter un Evenment</a></li>
-         <!--  <li><a href="login.html">login</a></li>
-          <li><a href="signup.html">sign up</a></li> -->
-          <li><a href="previsualiser.php">Previsualiser</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li class="dropdown"><a href="#" class="profile-link">
-            <img src="profile-img.jpg" alt="Profile Photo" class="profile-img">
-            <span>K.aderson</span> 
-            <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">My Profile</a></li>
-              <li><a href="#">Account sitting</a></li>
-              <li><a href="#">Need help?</a></li>
-              <li><a href="index.html">sing out</a></li>
-            </ul>
-          </li>
-  
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+    <ul>
+        <li><a class="active" href="Clhome.php">Home</a></li>
+        <li><a href="ajouter-even.html">Ajouter un Evenment</a></li>
+        <li><a href="previsualiser.php">Previsualiser</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="dropdown">
+            <a href="#" class="profile-link">
+                <img src="profile-img.jpg" alt="Profile Photo" class="profile-img">
+                <?php
+                try {
+                    $connexion = new PDO("mysql:host=$host;dbname=$bdd", $user, $mdp);
+                    $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+                    // Requête pour récupérer le prénom de l'utilisateur à partir de l'ID
+                    $requete = $connexion->prepare("SELECT prenom FROM user WHERE id_client = :userId");
+                    $requete->bindParam(':userId', $userId, PDO::PARAM_INT);
+                    $requete->execute();
+
+                    // Récupération du prénom
+                    $resultat = $requete->fetch(PDO::FETCH_ASSOC);
+                    $prenomUtilisateur = $resultat['prenom'];
+
+                    // Définir la variable de session avec le prénom de l'utilisateur
+                    $_SESSION['prenom'] = $prenomUtilisateur;
+
+                    echo '<span>' . $_SESSION['prenom'] . '</span>';
+                } catch (PDOException $e) {
+                    echo "Erreur : " . $e->getMessage();
+                } finally {
+                    $connexion = null;
+                }
+                ?>
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul>
+                <li><a href="#">My Profile</a></li>
+                <li><a href="#">Account sitting</a></li>
+                <li><a href="#">Need help?</a></li>
+                <li><a href="index.html">Sign out</a></li>
+            </ul>
+        </li>
+    </ul>
+    <i class="bi bi-list mobile-nav-toggle"></i>
+</nav><!-- .navbar -->
     </div>
     
  
@@ -193,10 +221,12 @@ if ($eventId !== null) {
   <p>Catégorie: <?php echo $eventDetails['categorie']; ?></p>
   <p>Date: <?php echo $eventDetails['date']; ?></p>
   <p>Heure: <?php echo $eventDetails['heure']; ?></p>
+  <p>lieu: <?php echo $eventDetails['lieux']; ?></p>
+  <p>prix:<?php echo $eventDetails['prix']; ?></p>
   <!-- Ajoutez d'autres détails au besoin -->
 
   <!-- Bouton pour quelque chose (ajoutez une action et un lien selon vos besoins) -->
-  <button>Quelque chose</button>
+  <button>Acheter un billet </button>
 </div>
 
 </div>

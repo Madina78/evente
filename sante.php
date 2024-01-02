@@ -12,7 +12,7 @@ try {
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $userId = $_SESSION['user_id'];
     // Récupération des données de la table event
-    $requete = $connexion->prepare("SELECT * FROM event where categorie='Loisir' and auto=1;");
+    $requete = $connexion->prepare("SELECT * FROM event where categorie='sante' and auto=1;");
     $requete->execute();
     $events = $requete->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -140,10 +140,12 @@ button:hover {
       <h1 class="logo"><a href="index.html">Evente</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
       <nav id="navbar" class="navbar">
     <ul>
         <li><a class="active" href="Clhome.php">Home</a></li>
         <li><a href="ajouter-even.html">Ajouter un Evenment</a></li>
+        <li><a href="previsualiser.php">Previsualiser</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li class="dropdown">
             <a href="#" class="profile-link">
