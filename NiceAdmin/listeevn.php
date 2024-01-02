@@ -229,12 +229,12 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">s.Guemache</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
+              <h6>s.Guemache</h6>
               <span>Web Designer</span>
             </li>
             <li>
@@ -337,19 +337,7 @@
         </a>
       </li><!-- End Contact Page Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li><!-- End Error 404 Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li><!-- End Blank Page Nav -->
+   
 
     </ul>
 
@@ -393,31 +381,38 @@ try {
     <h2>Liste des Evenments</h2>
 
     <table border="1">
-        <thead>
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Catégorie</th>
+            <th>Date</th>
+            <th>Heure</th>
+            <th>Image</th>
+            <th>Auto</th>
+            <th>Action</th> <!-- Nouvelle colonne pour le bouton de suppression -->
+            <!-- Ajoutez d'autres colonnes au besoin -->
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($events as $event): ?>
             <tr>
-                <th>Nom</th>
-                <th>categorie</th>
-                <th>date</th>
-                <th>heure</th>
-                <th>image</th>
-                <th>auto</th>
+                <td><?php echo $event['nomev']; ?></td>
+                <td><?php echo $event['categorie']; ?></td>
+                <td><?php echo $event['date']; ?></td>
+                <td><?php echo $event['heure']; ?></td>
+                <td><?php echo $event['image']; ?></td>
+                <td><?php echo $event['auto']; ?></td>
+                <td>
+                    <form method="post" action="supprimer_event.php"> <!-- Assurez-vous d'ajuster l'action avec le bon chemin -->
+                        <input type="hidden" name="event_id" value="<?php echo $event['id']; ?>">
+                        <button type="submit">Supprimer</button>
+                    </form>
+                </td>
                 <!-- Ajoutez d'autres colonnes au besoin -->
             </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($events as $event): ?>
-                <tr>
-                    <td><?php echo $event['nomev']; ?></td>
-                    <td><?php echo $event['categorie']; ?></td>
-                    <td><?php echo $event['date']; ?></td>
-                    <td><?php echo $event['heure']; ?></td>
-                    <td><?php echo $event['image']; ?></td>
-                    <td><?php echo $event['auto']; ?></td>
-                    <!-- Ajoutez d'autres colonnes au besoin -->
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
 </body>
 </html>

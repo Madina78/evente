@@ -234,7 +234,7 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
+              <h6>s.Guemache</h6>
               <span>Web Designer</span>
             </li>
             <li>
@@ -365,7 +365,7 @@
           </li>
           <li>
             <a href="components-spinners.html">
-              <i class="bi bi-circle"></i><span>Spinners</span>
+              <i class="bi bi-circle"></i><span>Spinners</span
             </a>
           </li>
           <li>
@@ -493,26 +493,13 @@
       </li><!-- End Register Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="file d'attente.php">
           <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
+          <span>File d'attente</span>
         </a>
       </li><!-- End Login Page Nav -->
       
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li><!-- End Error 404 Page Nav -->
-
+   
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-blank.html">
           <i class="bi bi-file-earmark"></i>
