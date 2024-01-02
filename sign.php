@@ -42,14 +42,20 @@ try {
         // Exécuter la requête d'insertion
         $requeteInsertUser->execute();
 
+        // Récupérer l'ID de l'utilisateur nouvellement inscrit
+        $idClient = $connexion->lastInsertId();
+
+        // Mettre à jour la session avec l'ID de l'utilisateur
+        $_SESSION['user_id'] = $idClient;
+
         // Rediriger vers la page Clhome.html
         echo json_encode(["status" => 2, "message" => "Inscription réussie"]);
     }
 } catch (PDOException $e) {
     // En cas d'erreur, retourner un message d'erreur
     echo json_encode(["status" => "error", "message" => $e->getMessage()]);
+} finally {
+    // Fermer la connexion à la base de données
+    $connexion = null;
 }
-
-// Fermer la connexion à la base de données
-$connexion = null;
 ?>

@@ -1,25 +1,3 @@
-
-<?php
-// Connexion à la base de données
-$host = "localhost:3309"; // Adresse du serveur MySQL
-$user = "root"; // Nom d'utilisateur MySQL
-$mdp = ""; // Mot de passe MySQL
-$bdd = "evente"; // Nom de la base de données
-
-try {
-    $connexion = new PDO("mysql:host=$host;dbname=$bdd", $user, $mdp);
-    $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Récupération des données de la table event
-    $requete = $connexion->prepare("SELECT * FROM event WHERE auto=1");
-    $requete->execute();
-    $events = $requete->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    echo "Erreur : " . $e->getMessage();
-} finally {
-    $connexion = null;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,62 +9,7 @@ try {
   <meta content="" name="description">
   <meta content="" name="keywords">
   <style>
-.containerimg {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			align-items: center;
-		}
-    .containerimg img {
-    margin: 17px;
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 5px solid #f2f2f2;
-    }
 
-    .containerimg h2 {
-			text-align: center;
-			font-size: 14px;
-			margin-top: 5px;}
-/* Ajout de styles pour gérer la disposition des cartes */
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
-  width: calc(25% - 20px); /* Ajuste la largeur en fonction du pourcentage */
-  margin: 10px;
-  box-sizing: border-box;
-  border-radius: 10px;
-}
-
-.card img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px 10px 0 0;
-}
-
-.container2 {
-  padding: 10px;
-}
-
-button {
-  cursor: pointer;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #ddd;
-}
 
 
 /* Style de la petite photo de profil */
@@ -119,7 +42,45 @@ button:hover {
   display: block;
 }
 
+
+  .content-container {
+    max-width: 800px; /* Ajustez la largeur maximale selon vos besoins */
+    margin: 0 auto; /* Centre le contenu horizontalement */
+    padding: 20px; /* Ajoute un peu d'espace autour du contenu */
+  }
+
+  .event-details {
+    text-align: center; /* Centre le texte à l'intérieur de la div */
+    margin-top: 20px; /* Ajoute un espace au-dessus de la div */
+  }
+
+  .event-details img {
+    max-width: 100%; /* L'image s'ajustera à la largeur de son conteneur parent */
+    height: auto; /* L'image conserve son ratio d'aspect */
+    margin-bottom: 20px; /* Ajoute un espace en dessous de l'image */
+  }
+
+  .event-details h1 {
+    font-size: 24px; /* Ajustez la taille de la police selon vos besoins */
+    margin-bottom: 10px; /* Ajoute un espace en dessous du titre */
+  }
+
+  .event-details p {
+    margin-bottom: 10px; /* Ajoute un espace en dessous de chaque paragraphe */
+  }
+
+  .event-details button {
+    background-color: #4154f1; /* Couleur de fond du bouton */
+    color: #fff; /* Couleur du texte du bouton */
+    padding: 10px 20px; /* Ajoute de l'espace à l'intérieur du bouton */
+    border: none; /* Supprime la bordure du bouton */
+    border-radius: 5px; /* Ajoute une bordure arrondie au bouton */
+    cursor: pointer; /* Change le curseur au survol du bouton */
+    font-size: 16px; /* Ajustez la taille de la police selon vos besoins */
+  }
 </style>
+
+
 
 
   <!-- Favicons -->
@@ -183,65 +144,62 @@ button:hover {
       </nav><!-- .navbar -->
 
     </div>
+    
+ 
   </header><!-- End Header -->
-  <br>
-  <br>
-  <br>
-  <br>
-  <div class="containerimg">
-		<div>
-			<img src="mic2.svg" alt="Image 1">
-			<a href="login.html"         > <h2>musique</h2> </a>
-		</div>
-		<div>
-			<img src="disco-ball-disco-svgrepo-com.svg" alt="Image 2">
-			<a href="login.html"         > <h2>vie nocturne</h2> </a>
-      
-     
-		</div>
-		<div>
-			<img src="mask-svgrepo-com.svg" alt="Image 3">
-      <a href="login.html"         > <h2>Arts de la scène</h2> </a>
-		
-        
-		</div>
-		<div>
-			<img src="health-medical-svgrepo-com.svg" alt="Image 4">
-      <a href="login.html"         > <h2>Sante</h2> </a>
-		
-		</div>
-		<div>
-			<img src="game-booster-svgrepo-com.svg" alt="Image 5">
-      <a href="Loisir.php"         > <h2>Loisir</h2> </a>
-			
-		</div>
-		<div>
-			  <img src="food-dish-svgrepo-com.svg" alt="Image 6">
-        <a href="login.html"         > <h2>Gastronomie</h2> </a>
-			   
-		    </div>
-	     </div>
-       <h3 style="text-align: center; font-weight: bold;">Evenments populaire</h3>
- 
-      <div class="card-container">
-      <?php
-     
-        // Affichage des cartes avec les données récupérées
-        foreach ($events as $event) {
-       
-            echo '<div class="card">';
-            echo '<img src="' . $event['image'] . '"  alt="Image de l\'événement"  " class="card-img">';
-            echo '<div class="container2">';
-            echo '<h4><b>' . $event['nomev'] . '</b></h4>';
-            echo '<a href="details.php?id=' . $event['id'] . '"><button>Détails</button></a>';
-            echo '</div>';
-            echo '</div>';
-        }
-        ?>
-        </div>
-   
- 
+  
+  
+  
+  <?php
+// Récupérez l'ID de l'événement à partir de l'URL
+$eventId = isset($_GET['id']) ? $_GET['id'] : null;
 
+if ($eventId !== null) {
+    // Récupérez les détails de l'événement en fonction de l'ID
+    // Utilisez votre logique de requête SQL pour récupérer les données de la base de données
+    $host = "localhost:3309";
+    $user = "root";
+    $mdp = "";
+    $bdd = "evente";
+
+    try {
+        $connexion = new PDO("mysql:host=$host;dbname=$bdd", $user, $mdp);
+        $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $requete = $connexion->prepare("SELECT * FROM event WHERE id = :eventId");
+        $requete->bindParam(':eventId', $eventId, PDO::PARAM_INT);
+        $requete->execute();
+        $eventDetails = $requete->fetch(PDO::FETCH_ASSOC);
+
+      
+    } catch (PDOException $e) {
+        echo "Erreur : " . $e->getMessage();
+    } finally {
+        $connexion = null;
+    }
+} else {
+    echo "Erreur : ID de l'événement non spécifié.";
+}
+?>
+<br>
+<br>
+
+ <div class="content-container">
+
+<!-- Détails de l'événement -->
+<div class="event-details">
+<img src="<?php echo $eventDetails['image']; ?>" alt="Image de l'événement">
+  <h1><?php echo $eventDetails['nomev']; ?></h1>
+  <p>Catégorie: <?php echo $eventDetails['categorie']; ?></p>
+  <p>Date: <?php echo $eventDetails['date']; ?></p>
+  <p>Heure: <?php echo $eventDetails['heure']; ?></p>
+  <!-- Ajoutez d'autres détails au besoin -->
+
+  <!-- Bouton pour quelque chose (ajoutez une action et un lien selon vos besoins) -->
+  <button>Quelque chose</button>
+</div>
+
+</div>
 
   <!-- ======= Footer ======= -->
   <footer id="footer">

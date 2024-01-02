@@ -11,7 +11,7 @@ try {
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Récupération des données de la table event
-    $requete = $connexion->prepare("SELECT * FROM event where categorie='Loisir'");
+    $requete = $connexion->prepare("SELECT * FROM event where categorie='Loisir' and auto=1;");
     $requete->execute();
     $events = $requete->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {

@@ -8,11 +8,13 @@
   <title>Pages / F.A.Q - NiceAdmin Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+  
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -325,9 +327,9 @@
     
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="file d'attente.php">
+        <a class="nav-link collapsed" href="file d'attente">
           <i class="bi bi-box-arrow-in-right"></i>
-          <span>file d'attente </span>
+          <span>file d' attente</span>
         </a>
       </li><!-- End Login Page Nav -->
       <li class="nav-item">
@@ -337,19 +339,6 @@
         </a>
       </li><!-- End Contact Page Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li><!-- End Error 404 Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li><!-- End Blank Page Nav -->
 
     </ul>
 
@@ -371,7 +360,7 @@ try {
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Récupération des données de la table user
-    $requete = $connexion->prepare("SELECT * FROM event");
+    $requete = $connexion->prepare("SELECT * FROM event where auto=0");
     $requete->execute();
     $events = $requete->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -391,16 +380,16 @@ try {
 <body>
 
     <h2>Liste des Evenments</h2>
-
     <table border="1">
         <thead>
             <tr>
                 <th>Nom</th>
-                <th>categorie</th>
-                <th>date</th>
-                <th>heure</th>
-                <th>image</th>
-                <th>auto</th>
+                <th>Catégorie</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Image</th>
+                <th>Auto</th>
+                <th>Action</th>
                 <!-- Ajoutez d'autres colonnes au besoin -->
             </tr>
         </thead>
@@ -412,12 +401,42 @@ try {
                     <td><?php echo $event['date']; ?></td>
                     <td><?php echo $event['heure']; ?></td>
                     <td><?php echo $event['image']; ?></td>
-                    <td><?php echo $event['auto']; ?></td>
+                    <td id="autoStatus<?php echo $event['id']; ?>"><?php echo $event['auto']; ?></td>
+                    <td>
+                        <!-- Bouton pour valider l'événement -->
+                        <button class="validate-button" data-event-id="<?php echo $event['id']; ?>">Valider</button>
+
+                    </td>
                     <!-- Ajoutez d'autres colonnes au besoin -->
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    
+    <script>
+    $(document).ready(function() {
+        // Attachez un gestionnaire d'événement au clic sur le bouton
+        $(".validate-button").click(function() {
+            // Récupérer l'ID de l'événement à partir de l'attribut data
+            var eventId = $(this).data("event-id");
+
+            // Mettez à jour l'indicateur auto via une requête AJAX
+            $.ajax({
+                type: "GET",
+                url: "valider_evenement.php",
+                data: { event_id: eventId },
+                success: function(response) {
+                    // Mettez à jour la valeur affichée dans la colonne Auto
+                    $("#autoStatus" + eventId).text(response.newAutoStatus);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>
