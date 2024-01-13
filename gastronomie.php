@@ -12,7 +12,7 @@ try {
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $userId = $_SESSION['user_id'];
     // Récupération des données de la table event
-    $requete = $connexion->prepare("SELECT * FROM event where categorie='Gastronomie' and auto=1;");
+    $requete = $connexion->prepare("SELECT * FROM event where categorie='siences & éducation' and auto=1;");
     $requete->execute();
     $events = $requete->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {

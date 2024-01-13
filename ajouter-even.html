@@ -72,13 +72,14 @@
             <option value="sante">Santé</option>
             <option value="loisir">Loisir</option>
             <option value="gastronomie">Gastronomie</option>
+            <option value="siences & éducation">siences & éducation</option>
         </select>
 
         <label for="start">Date de début</label>
-        <input type="date" id="date_debut" name="date_debut" value="2024-01-22" min="2023-01-01" max="2025-12-31" required />
+        <input type="date" id="date_debut" name="date_debut" value="2024-01-22" min="2024-01-01" max="2025-12-31" required />
 
         <label for="appt">Début de l'Événement</label>
-        <input type="time" id="appt" name="heure_debut" min="09:00" max="18:00" required />
+        <input type="time" id="appt" name="heure_debut" min="00:00" max="23:59" required />
 
         <label for="placeSearch">Lieu :</label>
         <input type="text" id="placeSearch" name="lieu" placeholder="Entrez un lieu" required />
@@ -89,9 +90,10 @@
             <input type="file" class="custom-file-input" id="customFileLang" lang="es" accept="image/*" name="image" required>
         </div>
 
-        <!-- Ajoutez d'autres champs ou boutons du formulaire au besoin -->
+      
 
-        <button type="submit">Rechercher</button>
+        <button type="submit" onclick="validerDate()">Ajouter</button>
+
     </form>
 </main>
 
@@ -101,7 +103,47 @@
 
 
 
+ <script>
+        function validerDate() {
+           
+            var dateDebut = document.getElementById("date_debut").value;
 
+            var dateActuelle = new Date().toLocaleDateString('fr-CA');
+
+           
+            if (dateDebut < dateActuelle) {
+                alert("La date de début ne peut pas être antérieure à aujourd'hui.");
+            } else {
+               
+                envoyerFormulaireAjax();
+            }
+        }
+
+        function envoyerFormulaireAjax() {
+            // Obtenir le formulaire
+            var formulaire = document.getElementById("eventoForm");
+
+            // Créer un objet FormData pour envoyer le formulaire
+            var formData = new FormData(formulaire);
+
+            // Effectuer une requête Ajax
+            $.ajax({
+                type: "POST",
+                url: "ajouterevt.php",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // Gérer la réponse du serveur
+                    alert(response);
+                },
+                error: function(error) {
+                    // Gérer les erreurs de la requête Ajax
+                    alert("Erreur lors de l'envoi du formulaire.");
+                }
+            });
+        }
+    </script>
 
 
 

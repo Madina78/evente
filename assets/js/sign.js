@@ -54,11 +54,12 @@ $(document).ready(function () {
             errorMessages.push("Tous les champs doivent être remplis.");
         }
     
-        // Valider le format de l'email
-        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            errorMessages.push("Le format de l'email est incorrect.");
-        }
+       // Valider le format de l'email
+       var emailRegex = new RegExp(/^[a-zA-Z]+[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/);
+      if (!emailRegex.test(email)) {
+       errorMessages.push("Le format de l'email est incorrect.");
+       }
+
     
         // Valider que le nom et le prénom contiennent uniquement des caractères alphabétiques
         var nameRegex = /^[a-zA-Z]+$/;
