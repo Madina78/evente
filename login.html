@@ -96,6 +96,13 @@
       <input type="password" id="password" name="password" placeholder="Votre mot de passe" required autocomplete="current-password">
     
       <button type="submit"id="submit">Se connecter</button> 
+      <br>
+      <br>
+      <a href="Clhome.php" id="continuerCommeVisiteurLink">
+        <button type="button" id="continuerCommeVisiteurBtn">Continuer comme un visiteur</button>
+      </a>
+      
+      
      <!--    <a class="bouton-lien">Se connecter</a> -->
      <div id="error-message" style="color: red;"></div>
     </form>
@@ -142,7 +149,9 @@
 
   <!-- Template Main JS File -->
  
-
+<script>document.getElementById("continuerCommeVisiteurBtn").addEventListener("click", function() {
+  window.location.href = "Clhome.php";
+});</script>
 </body>
 
 </html>

@@ -5,16 +5,16 @@ session_start();
 $host = "localhost:3309"; // Adresse du serveur MySQL
 $user = "root"; // Nom d'utilisateur MySQL
 $mdp = ""; // Mot de passe MySQL
-$bdd = "evente"; // Nom de la base de données
+$bdd = "asi"; // Nom de la base de données
 
 try {
     $connexion = new PDO("mysql:host=$host;dbname=$bdd", $user, $mdp);
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $userId = $_SESSION['user_id'];
     // Récupération des données de la table event
-    $requete = $connexion->prepare("SELECT * FROM event WHERE auto=1");
+    $requete = $connexion->prepare("SELECT * FROM article ");
     $requete->execute();
-    $events = $requete->fetchAll(PDO::FETCH_ASSOC);
+    $articles = $requete->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Erreur : " . $e->getMessage();
 } finally {
@@ -163,7 +163,7 @@ button:hover {
         <li><a class="active" href="Clhome.php">Home</a></li>
         <li><a href="ajouter-even.html">Ajouter un Evenment</a></li>
         <li><a href="previsualiser.php">Previsualiser</a></li>
-        <!-- <li><a href="contact.html">Contact</a></li> -->
+        <li><a href="contact.html">Contact</a></li>
         <li class="dropdown">
             <a href="#" class="profile-link">
                 <img src="profile-img.jpg" alt="Profile Photo" class="profile-img">
@@ -173,7 +173,7 @@ button:hover {
                     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                     // Requête pour récupérer le prénom de l'utilisateur à partir de l'ID
-                    $requete = $connexion->prepare("SELECT prenom FROM user WHERE id_client = :userId");
+                    $requete = $connexion->prepare("SELECT prenom FROM user WHERE id = :userId");
                     $requete->bindParam(':userId', $userId, PDO::PARAM_INT);
                     $requete->execute();
 
@@ -237,24 +237,24 @@ button:hover {
 			
 		</div>
 		<div>
-			  <img src="assets/img/categori img/education-cap-svgrepo-com.svg" alt="Image 6">
-        <a href="gastronomie.php"         > <h2>siences & éducation</h2> </a>
+			  <img src="assets/img/categori img/food-dish-svgrepo-com.svg" alt="Image 6">
+        <a href="gastronomie.php"         > <h2>Gastronomie</h2> </a>
 			   
 		    </div>
 	     </div>
-       <h3 style="text-align: center; font-weight: bold;">Evenments populaire</h3>
+       <h3 style="text-align: center; font-weight: bold;">Tous les Articles</h3>
  
       <div class="card-container">
       <?php
      
         // Affichage des cartes avec les données récupérées
-        foreach ($events as $event) {
+        foreach ($articles as $article) {
        
             echo '<div class="card">';
-            echo '<img src="' . $event['image'] . '"  alt="Image de l\'événement"  " class="card-img">';
+            echo '<img src="' . $article['image'] . '"  alt="Image de l\'événement"  " class="card-img">';
             echo '<div class="container2">';
-            echo '<h4><b>' . $event['nomev'] . '</b></h4>';
-            echo '<a href="details.php?id=' . $event['id'] . '"><button>Détails</button></a>';
+            echo '<h4><b>' . $article['nom'] . '</b></h4>';
+            echo '<a href="details.php?id=' . $article['prix'] . '"><button>Détails</button></a>';
             echo '</div>';
             echo '</div>';
         }
