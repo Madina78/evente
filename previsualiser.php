@@ -151,7 +151,7 @@ button:hover {
     <ul>
         <li><a class="active" href="Clhome.php">Home</a></li>
         <li><a href="ajouter-even.html">Ajouter un Evenment</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <!--<li><a href="contact.html">Contact</a></li>-->
         <li class="dropdown">
             <a href="#" class="profile-link">
                 <img src="profile-img.jpg" alt="Profile Photo" class="profile-img">

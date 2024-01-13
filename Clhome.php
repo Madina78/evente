@@ -155,7 +155,7 @@ button:hover {
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <h1 class="logo"><a href="index.html">Evente</a></h1>
+      <h1 class="logo"><a href="Clhome.php">Evente</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       <nav id="navbar" class="navbar">
@@ -163,7 +163,7 @@ button:hover {
         <li><a class="active" href="Clhome.php">Home</a></li>
         <li><a href="ajouter-even.html">Ajouter un Evenment</a></li>
         <li><a href="previsualiser.php">Previsualiser</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <!-- <li><a href="contact.html">Contact</a></li> -->
         <li class="dropdown">
             <a href="#" class="profile-link">
                 <img src="profile-img.jpg" alt="Profile Photo" class="profile-img">
@@ -237,8 +237,8 @@ button:hover {
 			
 		</div>
 		<div>
-			  <img src="assets/img/categori img/food-dish-svgrepo-com.svg" alt="Image 6">
-        <a href="gastronomie.php"         > <h2>Gastronomie</h2> </a>
+			  <img src="assets/img/categori img/education-cap-svgrepo-com.svg" alt="Image 6">
+        <a href="gastronomie.php"         > <h2>siences & éducation</h2> </a>
 			   
 		    </div>
 	     </div>

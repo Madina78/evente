@@ -5,13 +5,12 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / F.A.Q - NiceAdmin Bootstrap Template</title>
+  <title>Evente</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -484,14 +483,13 @@
         </a>
       </li><!-- End F.A.Q Page Nav -->
 
-
+     
       <li class="nav-item">
         <a class="nav-link collapsed" href="listeevn.php">
           <i class="bi bi-card-list"></i>
           <span>Liste des Evenements</span>
         </a>
       </li><!-- End Register Page Nav -->
-
       <li class="nav-item">
         <a class="nav-link collapsed" href="file d'attente.php">
           <i class="bi bi-box-arrow-in-right"></i>
@@ -501,11 +499,11 @@
       
    
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
+        <a class="nav-link collapsed" href="pages-contact.html">
+          <i class="bi bi-envelope"></i>
+          <span>Contact</span>
         </a>
-      </li><!-- End Blank Page Nav -->
+      </li><!-- End Contact Page Nav -->
 
     </ul>
 
@@ -554,8 +552,7 @@ try {
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Email</th>
-                <th>Mot de passe</th>
-                <!-- Ajoutez d'autres colonnes au besoin -->
+               
             </tr>
         </thead>
         <tbody>
@@ -564,8 +561,10 @@ try {
                     <td><?php echo $user['nom']; ?></td>
                     <td><?php echo $user['prenom']; ?></td>
                     <td><?php echo $user['email']; ?></td>
-                    <td><?php echo $user['password']; ?></td>
-                    <!-- Ajoutez d'autres colonnes au besoin -->
+                    <td>
+                   
+                </td>
+                 
                 </tr>
             <?php endforeach; ?>
         </tbody>

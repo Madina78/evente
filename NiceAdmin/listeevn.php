@@ -5,13 +5,12 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / F.A.Q - NiceAdmin Bootstrap Template</title>
+  <title>Evente</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -389,8 +388,7 @@ try {
             <th>Heure</th>
             <th>Image</th>
             <th>Auto</th>
-            <th>Action</th> <!-- Nouvelle colonne pour le bouton de suppression -->
-            <!-- Ajoutez d'autres colonnes au besoin -->
+            <th>Action</th> 
         </tr>
     </thead>
     <tbody>
@@ -403,12 +401,12 @@ try {
                 <td><?php echo $event['image']; ?></td>
                 <td><?php echo $event['auto']; ?></td>
                 <td>
-                    <form method="post" action="supprimer_event.php"> <!-- Assurez-vous d'ajuster l'action avec le bon chemin -->
+                    <form method="post" action="supprimer_event.php"> 
                         <input type="hidden" name="event_id" value="<?php echo $event['id']; ?>">
                         <button type="submit">Supprimer</button>
                     </form>
                 </td>
-                <!-- Ajoutez d'autres colonnes au besoin -->
+              
             </tr>
         <?php endforeach; ?>
     </tbody>
